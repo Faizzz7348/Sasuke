@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Table model for managing different tables
+model Table {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  region      String   // "selangor" or "kl"
+  rows        Int      @default(0)
+  columns     Int      @default(0)
+  status      String   @default("active") // "active", "archived", "draft"
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  tableData   TableData[]
+  
+  @@index([region])
+  @@index([status])
+}
+
+// Table data/rows
+model TableData {
+  id        String   @id @default(cuid())
+  tableId   String
+  code      String?
+  location  String?
+  delivery  String?
+  lat       String?
+  lng       String?
+  data      Json?    // For flexible data storage
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  table     Table    @relation(fields: [tableId], references: [id], onDelete: Cascade)
+  
+  @@index([tableId])
+}
+
+// Activity logs
+model Activity {
+  id        String   @id @default(cuid())
+  action    String
+  table     String
+  user      String
+  status    String   // "success", "warning", "info"
+  createdAt DateTime @default(now())
+  
+  @@index([createdAt])
+}
+
+// User model
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
