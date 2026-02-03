@@ -67,7 +67,7 @@ interface RecentActivity {
 }
 
 interface OverviewProps {
-  onNavigateToTables?: (event: React.MouseEvent<HTMLButtonElement>, region?: "selangor" | "kl") => void
+  onNavigateToTables?: (region?: "selangor" | "kl") => void
 }
 
 export function Overview({ onNavigateToTables }: OverviewProps) {
@@ -232,7 +232,7 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
               <Button 
                 className="w-full justify-start hover:translate-x-1 transition-transform" 
                 variant="outline" 
-                onClick={(e) => onNavigateToTables?.(e)}
+                onClick={() => onNavigateToTables?.("selangor")}
               >
                 <Table className="mr-2 h-4 w-4" />
                 View All Tables
@@ -240,7 +240,7 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
               <Button 
                 className="w-full justify-start hover:translate-x-1 transition-transform" 
                 variant="outline" 
-                onClick={(e) => onNavigateToTables?.(e)}
+                onClick={() => onNavigateToTables?.("selangor")}
               >
                 <MapPin className="mr-2 h-4 w-4" />
                 Manage Routes

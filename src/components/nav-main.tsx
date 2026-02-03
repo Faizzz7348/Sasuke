@@ -29,6 +29,7 @@ export function NavMain({
     isActive?: boolean
     region?: "selangor" | "kl"
     isOverview?: boolean
+    isSpinnerTest?: boolean
     items?: {
       title: string
       url: string
@@ -36,7 +37,7 @@ export function NavMain({
       region?: "selangor" | "kl"
     }[]
   }[]
-  onNavigate?: (view: "overview" | "list" | "detail", region?: "selangor" | "kl") => void
+  onNavigate?: (view: "overview" | "list" | "detail" | "spinner-test", region?: "selangor" | "kl") => void
 }) {
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -80,10 +81,49 @@ export function NavMain({
                       <item.icon />
                     )
                   )}
-                  <span className="font-semibold text-xs">{item.title}</span>
+                  <span>{item.title}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             )
+          }
+
+          // Handle Spinner Test menu
+          if (item.isSpinnerTest) {
+            return (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton 
+                  tooltip={item.title}
+                  onClick={() => {
+                    if (onNavigate) {
+                      onNavigate("spinner-test")
+                    }
+                  }}
+                >
+                  {item.icon && (
+                    typeof item.icon === 'string' ? (
+                      <img 
+                        src={item.icon} 
+                        alt="" 
+                        className="h-5 w-8 object-contain rounded-sm" 
+                        style={{ imageRendering: 'crisp-edges' }}
+                      />
+                    ) : (
+                      <item.icon />
+                    )
+                  )}
+                  <span>{item.title}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )
+          }
+
+          // Handle Route List with collapse
+          const filteredSubItems = item.items?.filter(subItem =>
+            subItem.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+
+          if (searchQuery && (!filteredSubItems || filteredSubItems.length === 0)) {
+            return null
           }
 
           // If item has region, it's a simple menu item (not collapsible)

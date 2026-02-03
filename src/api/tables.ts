@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 
 // GET /api/tables - Fetch all tables for a region
 export async function getTables(region: string) {
@@ -111,7 +112,14 @@ export async function deleteTable(id: string) {
 }
 
 // POST /api/tables/:id/data - Add row to table
-export async function addTableRow(tableId: string, rowData: any) {
+export async function addTableRow(tableId: string, rowData: {
+  code: string
+  location: string
+  delivery: string
+  lat: string
+  lng: string
+  [key: string]: unknown
+}) {
   try {
     const tableData = await prisma.tableData.create({
       data: {
@@ -121,7 +129,7 @@ export async function addTableRow(tableId: string, rowData: any) {
         delivery: rowData.delivery,
         lat: rowData.lat,
         lng: rowData.lng,
-        data: rowData,
+        data: rowData as Prisma.InputJsonValue,
       },
     })
     
@@ -143,7 +151,15 @@ export async function addTableRow(tableId: string, rowData: any) {
 }
 
 // PUT /api/tables/:id/data - Update multiple rows
-export async function updateTableRows(_tableId: string, rows: any[]) {
+export async function updateTableRows(_tableId: string, rows: Array<{
+  id: string
+  code?: string
+  location?: string
+  delivery?: string
+  lat?: string
+  lng?: string
+  [key: string]: unknown
+}>) {
   try {
     // Use transaction to update all rows
     const updates = rows.map(row =>
@@ -155,7 +171,7 @@ export async function updateTableRows(_tableId: string, rows: any[]) {
           delivery: row.delivery,
           lat: row.lat,
           lng: row.lng,
-          data: row,
+          data: row as Prisma.InputJsonValue,
         },
       })
     )

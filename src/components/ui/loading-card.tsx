@@ -1,16 +1,15 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Spinner } from "@/components/ui/spinner"
 
 export function LoadingCard() {
   return (
-    <Card className="animate-pulse">
-      <CardHeader className="space-y-2">
-        <Skeleton className="h-4 w-[200px]" />
-        <Skeleton className="h-3 w-[150px]" />
-      </CardHeader>
-      <CardContent className="space-y-2">
-        <Skeleton className="h-8 w-[100px]" />
-        <Skeleton className="h-3 w-[180px]" />
+    <Card className="animate-fade-in">
+      <CardContent className="flex items-center justify-center py-12">
+        <div className="flex flex-col items-center gap-4">
+          <Spinner size="lg" />
+          <p className="text-sm text-muted-foreground animate-pulse">Loading...</p>
+        </div>
       </CardContent>
     </Card>
   )

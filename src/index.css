@@ -13,10 +13,25 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Global transitions */
+/* Performance optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize repaints for animated elements */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Global transitions - optimized */
 * {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-duration: 200ms;
+  transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -113,23 +128,33 @@ html {
   will-change: transform;
 }
 
-/* Card hover effects */
+/* Card hover effects - with GPU acceleration */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
 }
 
 .card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.08);
 }
 
-/* Button transitions */
+.card-hover:active {
+  transform: translateY(0) scale(1);
+}
+
+/* Button transitions - optimized */
 button {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+button:hover {
+  transform: translateY(-1px);
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 /* Glass morphism effect */
@@ -288,21 +313,47 @@ button:active {
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    --ui-duration: 200ms;
+    --ui-duration: 150ms;
     --ui-ease: cubic-bezier(.2,.9,.2,1);
+  }
+  
+  /* Optimized transitions for specific properties */
+  *:not(.no-transition) {
     transition-property: background-color, color, border-color, box-shadow, transform, opacity;
     transition-duration: var(--ui-duration);
     transition-timing-function: var(--ui-ease);
   }
+  
   body {
     @apply bg-background text-foreground;
     font-size: calc(1rem - 2px);
+    overflow-x: hidden;
+  }
+  
+  /* Smooth scrolling containers */
+  [data-radix-scroll-area-viewport] {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Better resize behavior */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  * {
+    scroll-margin-top: 2rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-    animation: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
