@@ -38,10 +38,10 @@ html {
 /* Custom animations */
 @keyframes shimmer {
   0% {
-    background-position: -1000px 0;
+    transform: translateX(-100%);
   }
   100% {
-    background-position: 1000px 0;
+    transform: translateX(100%);
   }
 }
 
@@ -79,7 +79,7 @@ html {
 @keyframes scale-in {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
@@ -87,7 +87,7 @@ html {
   }
 }
 
-@keyframes spin-smooth {
+@keyframes spin {
   0% {
     transform: rotate(0deg);
   }
@@ -96,65 +96,88 @@ html {
   }
 }
 
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(var(--primary), 0.7);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 10px rgba(var(--primary), 0);
+  }
+}
+
 .animate-shimmer {
-  animation: shimmer 2s infinite linear;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 100%
-  );
-  background-size: 1000px 100%;
+  animation: shimmer 2s infinite ease-in-out;
 }
 
 .animate-slide-up {
-  animation: slide-up 0.5s ease-out;
+  animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-slide-down {
-  animation: slide-down 0.5s ease-out;
+  animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-fade-in {
-  animation: fade-in 0.5s ease-out;
+  animation: fade-in 0.4s ease-out;
 }
 
 .animate-scale-in {
-  animation: scale-in 0.3s ease-out;
+  animation: scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-spin {
-  animation: spin-smooth 0.8s linear infinite;
+  animation: spin 0.6s linear infinite;
   will-change: transform;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Card hover effects - with GPU acceleration */
 .card-hover {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, box-shadow;
 }
 
 .card-hover:hover {
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15), 0 6px 12px -5px rgba(0, 0, 0, 0.1);
 }
 
 .card-hover:active {
-  transform: translateY(0) scale(1);
+  transform: translateY(-2px);
+  transition-duration: 0.1s;
 }
 
 /* Button transitions - optimized */
 button {
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 
-button:hover {
-  transform: translateY(-1px);
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
 }
 
-button:active {
-  transform: scale(0.97);
+button:active:not(:disabled) {
+  transform: scale(0.96);
+  transition-duration: 0.1s;
 }
 
 /* Glass morphism effect */
@@ -173,31 +196,15 @@ button:active {
 .skeleton-shimmer {
   position: relative;
   overflow: hidden;
-}
-
-.skeleton-shimmer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   background: linear-gradient(
     90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
+    hsl(var(--muted)) 0%,
+    hsl(var(--muted) / 0.8) 20%,
+    hsl(var(--muted) / 0.8) 60%,
+    hsl(var(--muted)) 100%
   );
-  animation: shimmer 1.5s infinite;
-}
-
-.dark .skeleton-shimmer::after {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
 }
 
 @theme inline {
@@ -357,3 +364,55 @@ button:active {
     scroll-behavior: auto !important;
   }
 }
+
+/* Enhanced interactive states */
+input:focus, 
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px hsl(var(--ring) / 0.2);
+  transition: box-shadow 0.2s ease-out;
+}
+
+/* Smooth link transitions */
+a {
+  transition: color 0.2s ease-out;
+}
+
+/* Loading state animations */
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 0%,
+    hsl(var(--muted) / 0.5) 50%,
+    hsl(var(--muted)) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Improved card interactions */
+[data-slot="card"] {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-slot="card"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -8px hsl(var(--foreground) / 0.1);
+}
+
+/* Stagger children animation utility */
+.stagger-children > * {
+  animation: fade-in 0.4s ease-out backwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 350ms; }
+.stagger-children > *:nth-child(9) { animation-delay: 400ms; }
+.stagger-children > *:nth-child(10) { animation-delay: 450ms; }
