@@ -3,6 +3,8 @@ import {
   getTables,
   getTableById,
   createTable,
+  updateTable,
+  deleteTable,
   addTableRow,
   updateTableRows,
   deleteTableRow,
@@ -55,6 +57,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (url === '/api/tables' && method === 'POST') {
       const table = await createTable(req.body)
       return res.status(201).json(table)
+    }
+
+    // PUT /api/tables/:id
+    const putTableMatch = url?.match(/^\/api\/tables\/([^/]+)$/)
+    if (putTableMatch && method === 'PUT') {
+      const table = await updateTable(putTableMatch[1], req.body)
+      return res.json(table)
+    }
+
+    // DELETE /api/tables/:id
+    const deleteTableMatch = url?.match(/^\/api\/tables\/([^/]+)$/)
+    if (deleteTableMatch && method === 'DELETE') {
+      const result = await deleteTable(deleteTableMatch[1])
+      return res.json(result)
     }
 
     // POST /api/tables/:id/data

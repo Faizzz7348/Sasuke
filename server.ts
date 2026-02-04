@@ -4,6 +4,8 @@ import {
   getTables,
   getTableById,
   createTable,
+  updateTable,
+  deleteTable,
   addTableRow,
   updateTableRows,
   deleteTableRow,
@@ -60,6 +62,26 @@ app.post('/api/tables', async (req: Request, res: Response) => {
     res.status(201).json(table)
   } catch {
     res.status(500).json({ error: 'Failed to create table' })
+  }
+})
+
+// PUT /api/tables/:id
+app.put('/api/tables/:id', async (req: Request, res: Response) => {
+  try {
+    const table = await updateTable(req.params.id as string, req.body)
+    res.json(table)
+  } catch {
+    res.status(500).json({ error: 'Failed to update table' })
+  }
+})
+
+// DELETE /api/tables/:id
+app.delete('/api/tables/:id', async (req: Request, res: Response) => {
+  try {
+    const result = await deleteTable(req.params.id as string)
+    res.json(result)
+  } catch {
+    res.status(500).json({ error: 'Failed to delete table' })
   }
 })
 
