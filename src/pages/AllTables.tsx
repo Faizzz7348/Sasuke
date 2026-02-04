@@ -206,10 +206,10 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 sm:gap-6">
       {/* Header */}
       <FadeIn>
-        <div className="flex flex-col gap-4 items-center">
+        <div className="flex flex-col gap-3 sm:gap-4 items-center">
           <div className="flex flex-col items-center gap-2">
             {region === "selangor" && (
               <div className="relative group">
@@ -217,7 +217,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
                 <img 
                   src={SelangorIcon} 
                   alt="Selangor Flag" 
-                  className="h-14 w-20 object-cover rounded-lg border-2 border-gray-300/50 dark:border-gray-700 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl" 
+                  className="h-12 w-16 sm:h-14 sm:w-20 object-cover rounded-lg border-2 border-gray-300/50 dark:border-gray-700 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl" 
                   style={{ 
                     imageRendering: '-webkit-optimize-contrast',
                     filter: 'contrast(1.15) saturate(1.1) brightness(1.05) drop-shadow(0 2px 4px rgba(0,0,0,0.15))',
@@ -232,7 +232,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
                 <img 
                   src={KLIcon} 
                   alt="KL Flag" 
-                  className="h-14 w-20 object-cover rounded-lg border-2 border-gray-300/50 dark:border-gray-700 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl" 
+                  className="h-12 w-16 sm:h-14 sm:w-20 object-cover rounded-lg border-2 border-gray-300/50 dark:border-gray-700 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl" 
                   style={{ 
                     imageRendering: '-webkit-optimize-contrast',
                     filter: 'contrast(1.15) saturate(1.1) brightness(1.05) drop-shadow(0 2px 4px rgba(0,0,0,0.15))',
@@ -241,12 +241,12 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
                 />
               </div>
             )}
-            <h1 className="text-2xl font-bold tracking-tight text-center bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">{regionName}</h1>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-center bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">{regionName}</h1>
           </div>
           {isEditModeEnabled && (
-            <Button className="gap-2 shadow-lg hover:shadow-xl transition-all" onClick={() => setShowCreateModal(true)}>
-            <Plus className="h-4 w-4" />
-            Create New Table
+            <Button className="gap-2 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto" onClick={() => setShowCreateModal(true)}>
+            <Plus className="h-4 w-4 shrink-0" />
+            <span className="truncate">Create New Table</span>
           </Button>
           )}
         </div>
@@ -254,14 +254,14 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
 
       {/* Search and Filters */}
       <SlideIn direction="down" delay={100}>
-        <div className="flex flex-col gap-4 md:flex-row md:items-center">
+        <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground transition-colors" />
             <Input
               placeholder="Search tables..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 transition-all focus:ring-2 focus:ring-primary/20"
+              className="pl-10 pr-4 transition-all duration-200 focus:ring-2 focus:ring-primary/30 focus:pl-11 bg-background/50 backdrop-blur-sm focus:bg-background"
             />
           </div>
         </div>
@@ -281,10 +281,10 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
           />
         </FadeIn>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 stagger-children">
           {filteredTables.map((table, idx) => (
             <FadeIn key={table.id} delay={200 + idx * 50}>
-              <div className="group relative overflow-hidden rounded-lg border bg-card shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 p-5"
+              <div className="group relative overflow-hidden rounded-lg border bg-gradient-to-br from-card to-card/50 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] p-4 sm:p-5 cursor-pointer"
           >
             {isEditModeEnabled ? (
               <>

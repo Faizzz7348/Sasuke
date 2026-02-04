@@ -67,11 +67,11 @@ function AppContent() {
       <SidebarProvider>
       <AppSidebar onNavigate={handleNavigate} />
       <SidebarInset>
-        <header className="sticky top-0 flex h-16 shrink-0 items-center gap-2 bg-background/95 backdrop-blur-sm border-b z-50 transition-all duration-200 ease-out group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 supports-[backdrop-filter]:bg-background/80" role="banner">
-          <div className="flex items-center gap-2 px-4 flex-1">
-            <SidebarTrigger className="-ml-1" aria-label="Toggle sidebar" />
-            <Separator orientation="vertical" className="mr-2 h-4" aria-hidden="true" />
-            <Breadcrumb>
+        <header className="sticky top-0 flex h-14 sm:h-16 shrink-0 items-center gap-2 bg-background/95 backdrop-blur-md border-b z-50 transition-all duration-200 ease-out group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 supports-[backdrop-filter]:bg-background/80 shadow-sm" role="banner">
+          <div className="flex items-center gap-2 px-3 sm:px-4 flex-1 min-w-0">
+            <SidebarTrigger className="-ml-1 shrink-0" aria-label="Toggle sidebar" />
+            <Separator orientation="vertical" className="mr-2 h-4 shrink-0" aria-hidden="true" />
+            <Breadcrumb className="min-w-0 flex-1">
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#" onClick={() => setCurrentView("overview")}>
@@ -95,7 +95,7 @@ function AppContent() {
             <ThemeToggle />
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-4 overflow-auto" role="main">
+        <div className="flex flex-1 flex-col gap-4 sm:gap-6 p-3 sm:p-4 md:p-6 pt-4 sm:pt-6 overflow-auto scroll-smooth" role="main">
           {isPending && (
             <div className="fixed inset-0 z-[9999] bg-background/95 backdrop-blur-md flex items-center justify-center animate-fade-in">
               <div className="flex flex-col items-center gap-4">

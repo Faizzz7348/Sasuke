@@ -34,14 +34,14 @@ interface StatCardProps {
 
 const StatCard = ({ title, value, description, icon, trend }: StatCardProps) => {
   return (
-    <Card className="card-hover">
+    <Card className="card-hover bg-gradient-to-br from-card to-card/50">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <div className="h-4 w-4 text-muted-foreground">{icon}</div>
+        <CardTitle className="text-xs sm:text-sm font-medium line-clamp-2">{title}</CardTitle>
+        <div className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground shrink-0">{icon}</div>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-        <p className="text-xs text-muted-foreground mt-1">{description}</p>
+        <div className="text-xl sm:text-2xl md:text-3xl font-bold truncate">{value}</div>
+        <p className="text-xs sm:text-sm text-muted-foreground mt-1 line-clamp-2">{description}</p>
         {trend && (
           <div
             className={`text-xs mt-2 flex items-center gap-1 font-medium ${
@@ -223,39 +223,39 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
 
         {/* Quick Actions & Stats */}
         <FadeIn delay={500}>
-          <Card className="col-span-3 card-hover">
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>Common tasks and shortcuts</CardDescription>
+          <Card className="col-span-1 card-hover bg-gradient-to-br from-card to-card/50 h-full">
+            <CardHeader className="pb-3 sm:pb-4">
+              <CardTitle className="text-lg sm:text-xl">Quick Actions</CardTitle>
+              <CardDescription className="text-xs sm:text-sm">Common tasks and shortcuts</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-2">
+            <CardContent className="space-y-2 sm:space-y-3">
               <Button 
-                className="w-full justify-start hover:translate-x-1 transition-transform" 
+                className="w-full justify-start hover:translate-x-1 transition-all duration-200 text-sm sm:text-base" 
                 variant="outline" 
                 onClick={() => onNavigateToTables?.("selangor")}
               >
-                <Table className="mr-2 h-4 w-4" />
-                View All Tables
+                <Table className="mr-2 h-4 w-4 shrink-0" />
+                <span className="truncate">View All Tables</span>
               </Button>
               <Button 
-                className="w-full justify-start hover:translate-x-1 transition-transform" 
+                className="w-full justify-start hover:translate-x-1 transition-all duration-200 text-sm sm:text-base" 
                 variant="outline" 
                 onClick={() => onNavigateToTables?.("selangor")}
               >
-                <MapPin className="mr-2 h-4 w-4" />
-                Manage Routes
+                <MapPin className="mr-2 h-4 w-4 shrink-0" />
+                <span className="truncate">Manage Routes</span>
               </Button>
-              <Button className="w-full justify-start hover:translate-x-1 transition-transform" variant="outline">
-                <FileText className="mr-2 h-4 w-4" />
-                Generate Report
+              <Button className="w-full justify-start hover:translate-x-1 transition-all duration-200 text-sm sm:text-base" variant="outline">
+                <FileText className="mr-2 h-4 w-4 shrink-0" />
+                <span className="truncate">Generate Report</span>
               </Button>
-              <Button className="w-full justify-start hover:translate-x-1 transition-transform" variant="outline">
-                <Users className="mr-2 h-4 w-4" />
-                Manage Users
+              <Button className="w-full justify-start hover:translate-x-1 transition-all duration-200 text-sm sm:text-base" variant="outline">
+                <Users className="mr-2 h-4 w-4 shrink-0" />
+                <span className="truncate">Manage Users</span>
               </Button>
 
               {/* Mini Stats */}
-              <div className="pt-4 mt-4 border-t border-border/50 space-y-3">
+              <div className="pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-border/50 space-y-2 sm:space-y-3">
                 <div className="flex items-center justify-between hover:bg-muted/50 p-2 rounded transition-colors">
                   <span className="text-sm text-muted-foreground">
                     Today's Updates
