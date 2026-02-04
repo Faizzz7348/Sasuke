@@ -14,8 +14,30 @@ export function SpinnerTest() {
       {showFullPage && <FullPageLoader />}
       
       <div className="space-y-8 p-8 max-w-6xl mx-auto">
-        <div className="animate-fade-in">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+        {/* SUPER OBVIOUS TEST - Kalau ni tak pusing, BROWSER CACHE! */}
+        <div className="bg-yellow-500/20 border-2 border-yellow-500 rounded-lg p-6 mb-8">
+          <h2 className="text-2xl font-bold mb-4">🚨 INLINE STYLE TEST</h2>
+          <div className="flex items-center gap-8">
+            <div>
+              <p className="font-bold mb-2">Pure Inline Animation:</p>
+              <div
+                className="inline-block w-16 h-16 border-4 border-yellow-500/30 border-t-yellow-500 rounded-full"
+                style={{
+                  animation: "custom-spin 0.6s linear infinite",
+                  willChange: "transform"
+                }}
+              />
+            </div>
+            <div className="flex-1">
+              <p className="font-bold text-lg mb-2">❓ Ni kena pusing ke tak?</p>
+              <p className="text-sm">✅ Kalau PUSING = Code OK, browser cache je</p>
+              <p className="text-sm">❌ Kalau TAK PUSING = Press <kbd className="px-2 py-1 bg-black/20 rounded font-mono">Ctrl+Shift+R</kbd></p>
+              <p className="text-xs mt-2 text-muted-foreground">Check bottom-right untuk diagnostic panel!</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="animate-fade-in">\n          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
             ✨ Animasi & Spinner Test
           </h1>
           <p className="text-muted-foreground mt-2">Tengok semua spinner bergerak smooth & cantik!</p>

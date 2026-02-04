@@ -16,14 +16,15 @@ export function Spinner({ size = "md", className }: SpinnerProps) {
   return (
     <div
       className={cn(
-        "inline-block rounded-full border-solid border-primary/30 border-t-primary animate-spin",
+        "inline-block rounded-full border-solid border-primary/30 border-t-primary",
         sizeClasses[size],
         className
       )}
       role="status"
       aria-label="Loading"
       style={{
-        animation: "spin 0.6s linear infinite"
+        animation: "custom-spin 0.6s linear infinite",
+        willChange: "transform"
       }}
     />
   )
