@@ -67,10 +67,10 @@ function AppContent() {
       <SidebarProvider>
       <AppSidebar onNavigate={handleNavigate} />
       <SidebarInset>
-        <header className="sticky top-0 flex h-14 sm:h-16 shrink-0 items-center gap-2 bg-background/95 backdrop-blur-md border-b z-50 transition-all duration-200 ease-out group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 supports-[backdrop-filter]:bg-background/80 shadow-sm" role="banner">
+        <header className="sticky top-0 flex h-14 sm:h-16 shrink-0 items-center gap-2 bg-background/80 backdrop-blur-xl border-b-2 border-border/50 z-50 transition-all duration-200 ease-out group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 shadow-sm" role="banner">
           <div className="flex items-center gap-2 px-3 sm:px-4 flex-1 min-w-0">
             <SidebarTrigger className="-ml-1 shrink-0" aria-label="Toggle sidebar" />
-            <Separator orientation="vertical" className="mr-2 h-4 shrink-0" aria-hidden="true" />
+            <Separator orientation="vertical" className="mr-2 h-4 shrink-0 bg-border/60" aria-hidden="true" />
             <Breadcrumb className="min-w-0 flex-1">
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">

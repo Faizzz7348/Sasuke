@@ -256,12 +256,12 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
       <SlideIn direction="down" delay={100}>
         <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground transition-colors" />
+            <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
             <Input
-              placeholder="Search tables..."
+              placeholder="Search tables by name or description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 transition-all duration-200 focus:ring-2 focus:ring-primary/30 focus:pl-11 bg-background/50 backdrop-blur-sm focus:bg-background"
+              className="pl-11"
             />
           </div>
         </div>
