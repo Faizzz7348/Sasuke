@@ -98,9 +98,9 @@ function AppContent() {
         <div className="flex flex-1 flex-col gap-4 p-4 pt-4 overflow-auto" role="main">
           {isPending && (
             <div className="fixed inset-0 z-[9999] bg-background/95 backdrop-blur-md flex items-center justify-center animate-fade-in">
-              <div className="flex flex-col items-center gap-6">
-                <Spinner size="xl" className="text-primary" />
-                <p className="text-base font-medium text-muted-foreground">Loading...</p>
+              <div className="flex flex-col items-center gap-4">
+                <Spinner size="xl" />
+                <p className="text-sm font-medium text-muted-foreground">Loading...</p>
               </div>
             </div>
           )}

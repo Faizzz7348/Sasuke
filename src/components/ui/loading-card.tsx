@@ -9,13 +9,13 @@ export function LoadingCard({ count = 1 }: { count?: number }) {
         {Array.from({ length: count }).map((_, i) => (
           <Card 
             key={i} 
-            className="animate-fade-in transition-all duration-300 hover:shadow-lg"
+            className="animate-fade-in"
             style={{ animationDelay: `${i * 100}ms` }}
           >
             <CardContent className="flex items-center justify-center py-12">
-              <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-col items-center gap-3">
                 <Spinner size="lg" />
-                <p className="text-sm text-muted-foreground animate-pulse">Loading...</p>
+                <p className="text-sm text-muted-foreground">Loading...</p>
               </div>
             </CardContent>
           </Card>
@@ -25,11 +25,11 @@ export function LoadingCard({ count = 1 }: { count?: number }) {
   }
 
   return (
-    <Card className="animate-fade-in transition-all duration-300 hover:shadow-lg">
+    <Card className="animate-fade-in">
       <CardContent className="flex items-center justify-center py-12">
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-3">
           <Spinner size="lg" />
-          <p className="text-sm text-muted-foreground animate-pulse">Loading...</p>
+          <p className="text-sm text-muted-foreground">Loading...</p>
         </div>
       </CardContent>
     </Card>
