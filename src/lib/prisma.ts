@@ -9,6 +9,6 @@ export const prisma =
     log: ['query', 'error', 'warn'],
   })
 
-if (typeof window === 'undefined' && import.meta.env.MODE !== 'production') {
+if (typeof window === 'undefined' && process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma
 }
