@@ -13,15 +13,20 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { AllTables } from "@/pages/AllTables"
-import { TableDetail } from "@/pages/TableDetail"
-import { Overview } from "@/pages/Overview"
-import { SpinnerTest } from "@/pages/SpinnerTest"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { EditModeProvider } from "@/contexts/EditModeProvider"
 import { ToastProvider } from "@/contexts/ToastProvider"
 import { PageTransition } from "@/components/ui/page-transition"
-import { useState } from "react"
+import { ErrorBoundary } from "@/components/ErrorBoundary"
+import { SEO } from "@/components/SEO"
+import { lazy, Suspense, useState } from "react"
+import { LoadingCard } from "@/components/ui/loading-card"
+
+// Lazy load pages for better code splitting
+const AllTables = lazy(() => import("@/pages/AllTables").then(m => ({ default: m.AllTables })))
+const TableDetail = lazy(() => import("@/pages/TableDetail").then(m => ({ default: m.TableDetail })))
+const Overview = lazy(() => import("@/pages/Overview").then(m => ({ default: m.Overview })))
+const SpinnerTest = lazy(() => import("@/pages/SpinnerTest").then(m => ({ default: m.SpinnerTest })))
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<"overview" | "list" | "detail" | "spinner-test">("overview")
@@ -42,14 +47,27 @@ function AppContent() {
     }
   }
 
+  const pageTitle = currentView === "overview" 
+    ? "Overview - Sasuke Route Management"
+    : currentView === "list"
+    ? `${currentRegion === "selangor" ? "Selangor" : "Kuala Lumpur"} Routes - Sasuke`
+    : selectedTableName
+    ? `${selectedTableName} - Sasuke`
+    : "Route Details - Sasuke"
+
   return (
-    <SidebarProvider>
+    <>
+      <SEO 
+        title={pageTitle}
+        description={`Manage and view ${currentView === "overview" ? "all routes" : currentView === "list" ? `routes in ${currentRegion}` : "route details"}`}
+      />
+      <SidebarProvider>
       <AppSidebar onNavigate={handleNavigate} />
       <SidebarInset>
-        <header className="sticky top-0 flex h-16 shrink-0 items-center gap-2 bg-background/95 backdrop-blur-sm border-b z-50 transition-all duration-200 ease-out group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 supports-[backdrop-filter]:bg-background/80">
+        <header className="sticky top-0 flex h-16 shrink-0 items-center gap-2 bg-background/95 backdrop-blur-sm border-b z-50 transition-all duration-200 ease-out group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 supports-[backdrop-filter]:bg-background/80" role="banner">
           <div className="flex items-center gap-2 px-4 flex-1">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
+            <SidebarTrigger className="-ml-1" aria-label="Toggle sidebar" />
+            <Separator orientation="vertical" className="mr-2 h-4" aria-hidden="true" />
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
@@ -57,7 +75,7 @@ function AppContent() {
                     Route List
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbSeparator className="hidden md:block" aria-hidden="true" />
                 <BreadcrumbItem>
                   <BreadcrumbPage>
                     {currentView === "overview" 
@@ -74,33 +92,38 @@ function AppContent() {
             <ThemeToggle />
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-4 overflow-auto">
-          <PageTransition key={`${currentView}-${currentRegion}-${selectedTableId}`}>
-            {currentView === "overview" ? (
-              <Overview onNavigateToTables={(region) => {
-                handleNavigate("list", region)
-              }} />
-            ) : currentView === "list" ? (
-              <AllTables onViewTable={(tableId, tableName) => handleNavigate("detail", currentRegion, tableId, tableName)} region={currentRegion} />
-            ) : currentView === "spinner-test" ? (
-              <SpinnerTest />
-            ) : (
-              <TableDetail onBack={currentRegion ? () => handleNavigate("list", currentRegion) : undefined} tableId={selectedTableId} tableName={selectedTableName} />
-            )}
-          </PageTransition>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-4 overflow-auto" role="main">
+          <Suspense fallback={<LoadingCard count={3} />}>
+            <PageTransition key={`${currentView}-${currentRegion}-${selectedTableId}`}>
+              {currentView === "overview" ? (
+                <Overview onNavigateToTables={(region) => {
+                  handleNavigate("list", region)
+                }} />
+              ) : currentView === "list" ? (
+                <AllTables onViewTable={(tableId, tableName) => handleNavigate("detail", currentRegion, tableId, tableName)} region={currentRegion} />
+              ) : currentView === "spinner-test" ? (
+                <SpinnerTest />
+              ) : (
+                <TableDetail onBack={currentRegion ? () => handleNavigate("list", currentRegion) : undefined} tableId={selectedTableId} tableName={selectedTableName} />
+              )}
+            </PageTransition>
+          </Suspense>
         </div>
       </SidebarInset>
     </SidebarProvider>
+    </>
   )
 }
 
 export function App() {
   return (
-    <ToastProvider>
-      <EditModeProvider>
-        <AppContent />
-      </EditModeProvider>
-    </ToastProvider>
+    <ErrorBoundary>
+      <ToastProvider>
+        <EditModeProvider>
+          <AppContent />
+        </EditModeProvider>
+      </ToastProvider>
+    </ErrorBoundary>
   )
 }
 
