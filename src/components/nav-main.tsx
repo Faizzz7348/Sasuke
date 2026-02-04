@@ -1,5 +1,4 @@
-import { ChevronRight, type LucideIcon, Search } from "lucide-react"
-import { useState } from "react"
+import { ChevronRight, type LucideIcon } from "lucide-react"
 
 import {
   Collapsible,
@@ -16,7 +15,6 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
-import { Input } from "@/components/ui/input"
 
 export function NavMain({
   items,
@@ -38,22 +36,9 @@ export function NavMain({
   }[]
   onNavigate?: (view: "overview" | "list" | "detail", region?: "selangor" | "kl") => void
 }) {
-  const [searchQuery, setSearchQuery] = useState("")
-
   return (
     <SidebarGroup>
-      <div className="px-2 pb-2">
-        <div className="relative">
-          <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-8 pl-8 text-xs"
-          />
-        </div>
-      </div>
-      <SidebarGroupLabel>Vending Machine</SidebarGroupLabel>
+      <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           // Handle Overview menu (standalone menu without collapse)
@@ -73,8 +58,7 @@ export function NavMain({
                       <img 
                         src={item.icon} 
                         alt="" 
-                        className="h-5 w-8 object-contain rounded-sm" 
-                        style={{ imageRendering: 'crisp-edges' }}
+                        className="h-4 w-4 object-contain" 
                       />
                     ) : (
                       <item.icon />
@@ -84,15 +68,6 @@ export function NavMain({
                 </SidebarMenuButton>
               </SidebarMenuItem>
             )
-          }
-
-          // Handle Route List with collapse
-          const filteredSubItems = item.items?.filter(subItem =>
-            subItem.title.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-
-          if (searchQuery && (!filteredSubItems || filteredSubItems.length === 0)) {
-            return null
           }
 
           // If item has region, it's a simple menu item (not collapsible)
@@ -112,8 +87,7 @@ export function NavMain({
                       <img 
                         src={item.icon} 
                         alt="" 
-                        className="h-5 w-8 object-contain rounded-sm" 
-                        style={{ imageRendering: 'crisp-edges' }}
+                        className="h-4 w-4 object-contain" 
                       />
                     ) : (
                       <item.icon />
@@ -141,14 +115,13 @@ export function NavMain({
                         <img 
                           src={item.icon} 
                           alt="" 
-                          className="h-5 w-8 object-contain rounded-sm" 
-                          style={{ imageRendering: 'crisp-edges' }}
+                          className="h-4 w-4 object-contain" 
                         />
                       ) : (
                         <item.icon />
                       )
                     )}
-                    <span className="font-semibold text-sm">{item.title}</span>
+                    <span>{item.title}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
@@ -170,11 +143,10 @@ export function NavMain({
                               <img 
                                 src={subItem.icon} 
                                 alt="" 
-                                className="h-4 w-6 object-contain rounded-sm mr-2" 
-                                style={{ imageRendering: 'crisp-edges' }}
+                                className="h-4 w-4 object-contain mr-2" 
                               />
                             )}
-                            <span className="font-semibold text-xs">{subItem.title}</span>
+                            <span>{subItem.title}</span>
                           </a>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>

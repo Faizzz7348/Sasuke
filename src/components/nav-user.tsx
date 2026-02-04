@@ -1,17 +1,22 @@
 import {
-  Settings,
+  BadgeCheck,
+  Bell,
   ChevronsUpDown,
-  Edit,
+  CreditCard,
+  LogOut,
+  Sparkles,
 } from "lucide-react"
 
 import {
   Avatar,
   AvatarFallback,
+  AvatarImage,
 } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -22,7 +27,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { useEditMode } from "@/contexts/EditModeProvider"
 
 export function NavUser({
   user,
@@ -34,7 +38,6 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
-  const { isEditModeEnabled, toggleEditMode } = useEditMode()
 
   return (
     <SidebarMenu>
@@ -45,55 +48,62 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg bg-blue-600">
-                <AvatarFallback className="rounded-lg bg-blue-600 text-white">
-                  <Settings className="h-4 w-4" />
-                </AvatarFallback>
+              <Avatar className="h-8 w-8 rounded-lg">
+                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs text-muted-foreground">Application Settings</span>
+                <span className="truncate font-semibold">{user.name}</span>
+                <span className="truncate text-xs">{user.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
             side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-3 py-2 text-left text-sm">
-                <Settings className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Settings</span>
-                  <span className="truncate text-xs text-muted-foreground">Configure application</span>
+                  <span className="truncate font-semibold">{user.name}</span>
+                  <span className="truncate text-xs">{user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <div className="flex items-center justify-between px-2 py-2">
-                <div className="flex items-center gap-2">
-                  <Edit className="h-4 w-4 text-blue-600" />
-                  <span className="text-sm font-medium">Edit Mode</span>
-                </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    toggleEditMode()
-                  }}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                    isEditModeEnabled ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700'
-                  }`}
-                >
-                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    isEditModeEnabled ? 'translate-x-6' : 'translate-x-1'
-                  }`} />
-                </button>
-              </div>
+              <DropdownMenuItem>
+                <Sparkles className="mr-2 h-4 w-4" />
+                Upgrade to Pro
+              </DropdownMenuItem>
             </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <BadgeCheck className="mr-2 h-4 w-4" />
+                Account
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <CreditCard className="mr-2 h-4 w-4" />
+                Billing
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Bell className="mr-2 h-4 w-4" />
+                Notifications
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <LogOut className="mr-2 h-4 w-4" />
+              Log out
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

@@ -25,25 +25,25 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "Settings",
-    email: "admin@lasttable.com",
-    avatar: "/avatars/admin.jpg",
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
   },
   teams: [
     {
-      name: "LastTable",
+      name: "Acme Inc",
       logo: GalleryVerticalEnd,
-      plan: "Pro",
+      plan: "Enterprise",
     },
     {
-      name: "Development",
+      name: "Acme Corp.",
       logo: AudioWaveform,
-      plan: "Team",
+      plan: "Startup",
     },
     {
-      name: "Marketing",
+      name: "Evil Corp.",
       logo: Command,
-      plan: "Business",
+      plan: "Free",
     },
   ],
   navMain: [
@@ -83,7 +83,7 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 
 export function AppSidebar({ onNavigate, ...props }: AppSidebarProps) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
