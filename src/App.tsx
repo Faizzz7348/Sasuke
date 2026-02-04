@@ -19,8 +19,9 @@ import { ToastProvider } from "@/contexts/ToastProvider"
 import { PageTransition } from "@/components/ui/page-transition"
 import { ErrorBoundary } from "@/components/ErrorBoundary"
 import { SEO } from "@/components/SEO"
-import { lazy, Suspense, useState } from "react"
+import { lazy, Suspense, useState, useTransition } from "react"
 import { LoadingCard } from "@/components/ui/loading-card"
+import { Spinner } from "@/components/ui/spinner"
 
 // Lazy load pages for better code splitting
 const AllTables = lazy(() => import("@/pages/AllTables").then(m => ({ default: m.AllTables })))
@@ -32,18 +33,21 @@ function AppContent() {
   const [currentRegion, setCurrentRegion] = useState<"selangor" | "kl">("selangor")
   const [selectedTableId, setSelectedTableId] = useState<string | undefined>()
   const [selectedTableName, setSelectedTableName] = useState<string | undefined>()
+  const [isPending, startTransition] = useTransition()
 
   const handleNavigate = (view: "overview" | "list" | "detail", region?: "selangor" | "kl", tableId?: string, tableName?: string) => {
-    setCurrentView(view)
-    if (region) {
-      setCurrentRegion(region)
-    }
-    if (tableId) {
-      setSelectedTableId(tableId)
-    }
-    if (tableName) {
-      setSelectedTableName(tableName)
-    }
+    startTransition(() => {
+      setCurrentView(view)
+      if (region) {
+        setCurrentRegion(region)
+      }
+      if (tableId) {
+        setSelectedTableId(tableId)
+      }
+      if (tableName) {
+        setSelectedTableName(tableName)
+      }
+    })
   }
 
   const pageTitle = currentView === "overview" 
@@ -92,6 +96,14 @@ function AppContent() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-4 overflow-auto" role="main">
+          {isPending && (
+            <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center animate-fade-in">
+              <div className="flex flex-col items-center gap-4 p-8 rounded-lg bg-card border shadow-lg">
+                <Spinner size="xl" className="text-primary" />
+                <p className="text-lg font-medium animate-pulse">Loading page...</p>
+              </div>
+            </div>
+          )}
           <Suspense fallback={<LoadingCard count={3} />}>
             <PageTransition key={`${currentView}-${currentRegion}-${selectedTableId}`}>
               {currentView === "overview" ? (
