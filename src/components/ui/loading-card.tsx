@@ -14,7 +14,7 @@ export function LoadingCard({ count = 1 }: { count?: number }) {
           >
             <CardContent className="flex items-center justify-center py-12">
               <div className="flex flex-col items-center gap-4">
-                <Spinner size="lg" className="text-primary" />
+                <Spinner size="lg" />
                 <p className="text-sm text-muted-foreground animate-pulse">Loading...</p>
               </div>
             </CardContent>
@@ -28,7 +28,7 @@ export function LoadingCard({ count = 1 }: { count?: number }) {
     <Card className="animate-fade-in transition-all duration-300 hover:shadow-lg">
       <CardContent className="flex items-center justify-center py-12">
         <div className="flex flex-col items-center gap-4">
-          <Spinner size="lg" className="text-primary" />
+          <Spinner size="lg" />
           <p className="text-sm text-muted-foreground animate-pulse">Loading...</p>
         </div>
       </CardContent>

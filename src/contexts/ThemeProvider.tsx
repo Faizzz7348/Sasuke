@@ -45,12 +45,14 @@ export function ThemeProvider({
 
       root.classList.add(systemTheme)
       root.style.colorScheme = systemTheme
+      root.setAttribute("data-theme", systemTheme)
       updateThemeColor(systemTheme === "dark")
       return
     }
 
     root.classList.add(theme)
     root.style.colorScheme = theme
+    root.setAttribute("data-theme", theme)
     updateThemeColor(theme === "dark")
   }, [theme])
 

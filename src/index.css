@@ -29,7 +29,7 @@ html {
 }
 
 /* Global transitions - optimized */
-* {
+*:not(.no-transition, .animate-spin) {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -48,7 +48,7 @@ html {
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -59,7 +59,7 @@ html {
 @keyframes slide-down {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-16px);
   }
   to {
     opacity: 1;
@@ -79,7 +79,7 @@ html {
 @keyframes scale-in {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
@@ -87,20 +87,11 @@ html {
   }
 }
 
-@keyframes custom-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes spin {
-  0% {
+  from {
     transform: rotate(0deg);
   }
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
@@ -130,28 +121,23 @@ html {
 }
 
 .animate-slide-up {
-  animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-slide-down {
-  animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slide-down 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-fade-in {
-  animation: fade-in 0.4s ease-out;
+  animation: fade-in 0.3s ease-out;
 }
 
 .animate-scale-in {
-  animation: scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: scale-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-spin {
-  animation: custom-spin 0.6s linear infinite !important;
-  will-change: transform;
-}
-
-.spinner-rotate {
-  animation: custom-spin 0.6s linear infinite;
+  animation: spin 0.6s linear infinite !important;
   will-change: transform;
 }
 
@@ -165,32 +151,32 @@ html {
 
 /* Card hover effects - with GPU acceleration */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, box-shadow;
 }
 
 .card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15), 0 6px 12px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.08);
 }
 
 .card-hover:active {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   transition-duration: 0.1s;
 }
 
 /* Button transitions - optimized */
-button {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+button:not(.no-transition) {
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 
 button:hover:not(:disabled) {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 button:active:not(:disabled) {
-  transform: scale(0.96);
+  transform: scale(0.98);
   transition-duration: 0.1s;
 }
 
@@ -335,12 +321,12 @@ button:active:not(:disabled) {
   * {
     @apply border-border outline-ring/50;
     --ui-duration: 150ms;
-    --ui-ease: cubic-bezier(.2,.9,.2,1);
+    --ui-ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
   
   /* Optimized transitions for specific properties */
-  *:not(.no-transition) {
-    transition-property: background-color, color, border-color, box-shadow, transform, opacity;
+  *:not(.no-transition, .animate-spin, button) {
+    transition-property: background-color, color, border-color, box-shadow, opacity;
     transition-duration: var(--ui-duration);
     transition-timing-function: var(--ui-ease);
   }
