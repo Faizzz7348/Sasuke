@@ -3,9 +3,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Apply cute font globally */
+/* Apply professional font globally */
 * {
-  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
 /* Smooth scrolling */
@@ -28,10 +28,10 @@ html {
   will-change: opacity;
 }
 
-/* Global transitions - optimized */
+/* Global transitions - optimized and smooth */
 *:not(.no-transition, .animate-spin) {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-duration: 150ms;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow;
+  transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -149,15 +149,17 @@ html {
   animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Card hover effects - with GPU acceleration */
+/* Card hover effects - with GPU acceleration and professional shadows */
 .card-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, box-shadow;
+  border: 1px solid hsl(var(--border));
 }
 
 .card-hover:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15), 0 6px 12px -4px rgba(0, 0, 0, 0.1);
+  border-color: hsl(var(--border) / 0.7);
 }
 
 .card-hover:active {

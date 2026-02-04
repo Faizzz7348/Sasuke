@@ -284,7 +284,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filteredTables.map((table, idx) => (
             <FadeIn key={table.id} delay={200 + idx * 50}>
-              <div className="group relative overflow-hidden rounded-lg border bg-card p-5 card-hover"
+              <div className="group relative overflow-hidden rounded-lg border bg-card shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 p-5"
           >
             {isEditModeEnabled ? (
               <>
@@ -319,7 +319,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
                 </div>
 
                 {/* Admin User info and icons at bottom */}
-                <div className="mt-4 pt-4 border-t">
+                <div className="mt-4 pt-4 border-t border-border/50">
                   <div className="flex flex-col text-xs text-muted-foreground mb-3">
                     <span>{table.createdBy}</span>
                     <span>{table.lastModified}</span>
@@ -417,7 +417,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
                   </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t flex items-center justify-between gap-2">
+                <div className="mt-4 pt-4 border-t border-border/50 flex items-center justify-between gap-2">
                   <div className="flex flex-col text-xs text-muted-foreground">
                     <span>{table.createdBy}</span>
                     <span>{table.lastModified}</span>
@@ -482,7 +482,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-4 border-t">
+          <div className="flex justify-end gap-2 pt-4 border-t border-border/50">
             <Button
               variant="outline"
               onClick={() => setShowCreateModal(false)}
@@ -543,7 +543,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-4 border-t">
+          <div className="flex justify-end gap-2 pt-4 border-t border-border/50">
             <Button
               variant="outline"
               onClick={() => {
@@ -596,7 +596,7 @@ export function AllTables({ onViewTable, region = "selangor" }: AllTablesProps) 
             </div>
           )}
 
-          <div className="flex justify-end gap-2 pt-4 border-t">
+          <div className="flex justify-end gap-2 pt-4 border-t border-border/50">
             <Button
               variant="outline"
               onClick={() => {

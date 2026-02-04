@@ -255,7 +255,7 @@ export function Overview({ onNavigateToTables }: OverviewProps) {
               </Button>
 
               {/* Mini Stats */}
-              <div className="pt-4 mt-4 border-t space-y-3">
+              <div className="pt-4 mt-4 border-t border-border/50 space-y-3">
                 <div className="flex items-center justify-between hover:bg-muted/50 p-2 rounded transition-colors">
                   <span className="text-sm text-muted-foreground">
                     Today's Updates

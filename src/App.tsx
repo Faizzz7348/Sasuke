@@ -97,10 +97,10 @@ function AppContent() {
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-4 overflow-auto" role="main">
           {isPending && (
-            <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center animate-fade-in">
-              <div className="flex flex-col items-center gap-4 p-8 rounded-lg bg-card border shadow-lg">
+            <div className="fixed inset-0 z-[9999] bg-background/95 backdrop-blur-md flex items-center justify-center animate-fade-in">
+              <div className="flex flex-col items-center gap-6">
                 <Spinner size="xl" className="text-primary" />
-                <p className="text-lg font-medium animate-pulse">Loading page...</p>
+                <p className="text-base font-medium text-muted-foreground">Loading...</p>
               </div>
             </div>
           )}
