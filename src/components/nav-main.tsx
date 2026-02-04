@@ -29,7 +29,6 @@ export function NavMain({
     isActive?: boolean
     region?: "selangor" | "kl"
     isOverview?: boolean
-    isSpinnerTest?: boolean
     items?: {
       title: string
       url: string
@@ -37,7 +36,7 @@ export function NavMain({
       region?: "selangor" | "kl"
     }[]
   }[]
-  onNavigate?: (view: "overview" | "list" | "detail" | "spinner-test", region?: "selangor" | "kl") => void
+  onNavigate?: (view: "overview" | "list" | "detail", region?: "selangor" | "kl") => void
 }) {
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -66,36 +65,6 @@ export function NavMain({
                   onClick={() => {
                     if (onNavigate) {
                       onNavigate("overview")
-                    }
-                  }}
-                >
-                  {item.icon && (
-                    typeof item.icon === 'string' ? (
-                      <img 
-                        src={item.icon} 
-                        alt="" 
-                        className="h-5 w-8 object-contain rounded-sm" 
-                        style={{ imageRendering: 'crisp-edges' }}
-                      />
-                    ) : (
-                      <item.icon />
-                    )
-                  )}
-                  <span>{item.title}</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            )
-          }
-
-          // Handle Spinner Test menu
-          if (item.isSpinnerTest) {
-            return (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton 
-                  tooltip={item.title}
-                  onClick={() => {
-                    if (onNavigate) {
-                      onNavigate("spinner-test")
                     }
                   }}
                 >

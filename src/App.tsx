@@ -26,15 +26,14 @@ import { LoadingCard } from "@/components/ui/loading-card"
 const AllTables = lazy(() => import("@/pages/AllTables").then(m => ({ default: m.AllTables })))
 const TableDetail = lazy(() => import("@/pages/TableDetail").then(m => ({ default: m.TableDetail })))
 const Overview = lazy(() => import("@/pages/Overview").then(m => ({ default: m.Overview })))
-const SpinnerTest = lazy(() => import("@/pages/SpinnerTest").then(m => ({ default: m.SpinnerTest })))
 
 function AppContent() {
-  const [currentView, setCurrentView] = useState<"overview" | "list" | "detail" | "spinner-test">("overview")
+  const [currentView, setCurrentView] = useState<"overview" | "list" | "detail">("overview")
   const [currentRegion, setCurrentRegion] = useState<"selangor" | "kl">("selangor")
   const [selectedTableId, setSelectedTableId] = useState<string | undefined>()
   const [selectedTableName, setSelectedTableName] = useState<string | undefined>()
 
-  const handleNavigate = (view: "overview" | "list" | "detail" | "spinner-test", region?: "selangor" | "kl", tableId?: string, tableName?: string) => {
+  const handleNavigate = (view: "overview" | "list" | "detail", region?: "selangor" | "kl", tableId?: string, tableName?: string) => {
     setCurrentView(view)
     if (region) {
       setCurrentRegion(region)
@@ -101,8 +100,6 @@ function AppContent() {
                 }} />
               ) : currentView === "list" ? (
                 <AllTables onViewTable={(tableId, tableName) => handleNavigate("detail", currentRegion, tableId, tableName)} region={currentRegion} />
-              ) : currentView === "spinner-test" ? (
-                <SpinnerTest />
               ) : (
                 <TableDetail onBack={currentRegion ? () => handleNavigate("list", currentRegion) : undefined} tableId={selectedTableId} tableName={selectedTableName} />
               )}

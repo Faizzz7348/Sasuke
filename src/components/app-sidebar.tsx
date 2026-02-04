@@ -7,7 +7,6 @@ import {
   GalleryVerticalEnd,
   PieChart,
   SquareTerminal,
-  Loader2,
 } from "lucide-react"
 import SelangorIcon from "@/assets/icon/960px-Flag_of_Selangor.svg.png"
 import KLIcon from "@/assets/icon/kl-flag.png"
@@ -56,13 +55,6 @@ const data = {
       isOverview: true,
     },
     {
-      title: "Spinner Test 🔄",
-      url: "#",
-      icon: Loader2,
-      isActive: false,
-      isSpinnerTest: true,
-    },
-    {
       title: "Route List",
       url: "#",
       icon: SquareTerminal,
@@ -86,7 +78,7 @@ const data = {
 }
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  onNavigate?: (view: "overview" | "list" | "detail" | "spinner-test", region?: "selangor" | "kl") => void
+  onNavigate?: (view: "overview" | "list" | "detail", region?: "selangor" | "kl") => void
 }
 
 export function AppSidebar({ onNavigate, ...props }: AppSidebarProps) {
