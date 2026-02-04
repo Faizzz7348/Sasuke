@@ -14,25 +14,30 @@ export function SpinnerTest() {
       {showFullPage && <FullPageLoader />}
       
       <div className="space-y-8 p-8 max-w-6xl mx-auto">
-        {/* SUPER OBVIOUS TEST - Kalau ni tak pusing, BROWSER CACHE! */}
-        <div className="bg-yellow-500/20 border-2 border-yellow-500 rounded-lg p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-4">🚨 INLINE STYLE TEST</h2>
+        {/* SUPER OBVIOUS TEST - GUARANTEED SPINNING! */}
+        <div className="bg-red-500/20 border-4 border-red-500 rounded-lg p-6 mb-8">
+          <style>{`
+            @keyframes force-spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+            .force-spinner {
+              animation: force-spin 0.8s linear infinite !important;
+            }
+          `}</style>
+          <h2 className="text-3xl font-bold mb-4">🔥 PAKSA PUSING!</h2>
           <div className="flex items-center gap-8">
             <div>
-              <p className="font-bold mb-2">Pure Inline Animation:</p>
+              <p className="font-bold mb-2 text-xl">CRITICAL TEST:</p>
               <div
-                className="inline-block w-16 h-16 border-4 border-yellow-500/30 border-t-yellow-500 rounded-full"
-                style={{
-                  animation: "custom-spin 0.6s linear infinite",
-                  willChange: "transform"
-                }}
+                className="force-spinner inline-block w-20 h-20 border-8 border-red-500/30 border-t-red-500 rounded-full"
               />
             </div>
             <div className="flex-1">
-              <p className="font-bold text-lg mb-2">❓ Ni kena pusing ke tak?</p>
-              <p className="text-sm">✅ Kalau PUSING = Code OK, browser cache je</p>
-              <p className="text-sm">❌ Kalau TAK PUSING = Press <kbd className="px-2 py-1 bg-black/20 rounded font-mono">Ctrl+Shift+R</kbd></p>
-              <p className="text-xs mt-2 text-muted-foreground">Check bottom-right untuk diagnostic panel!</p>
+              <p className="font-bold text-2xl mb-2">🚨 MESTI PUSING!</p>
+              <p className="text-lg">✅ Kalau PUSING = Semua OK</p>
+              <p className="text-lg">❌ Kalau TAK PUSING = Browser issue atau CSS conflict teruk</p>
+              <p className="text-sm mt-2 text-muted-foreground">Ini guna inline <code>&lt;style&gt;</code> + !important</p>
             </div>
           </div>
         </div>

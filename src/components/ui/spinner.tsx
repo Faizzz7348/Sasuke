@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { useEffect, useRef } from "react"
 
 interface SpinnerProps {
   size?: "sm" | "md" | "lg" | "xl"
@@ -6,6 +7,8 @@ interface SpinnerProps {
 }
 
 export function Spinner({ size = "md", className }: SpinnerProps) {
+  const spinnerRef = useRef<HTMLDivElement>(null)
+  
   const sizeClasses = {
     sm: "h-4 w-4 border-2",
     md: "h-8 w-8 border-2",
@@ -13,20 +16,38 @@ export function Spinner({ size = "md", className }: SpinnerProps) {
     xl: "h-16 w-16 border-4",
   }
 
+  useEffect(() => {
+    if (spinnerRef.current) {
+      // Force animation via DOM
+      spinnerRef.current.style.animation = 'none'
+      void spinnerRef.current.offsetHeight // Trigger reflow
+      spinnerRef.current.style.animation = 'spinner-rotate 0.6s linear infinite'
+    }
+  }, [])
+
   return (
-    <div
-      className={cn(
-        "inline-block rounded-full border-solid border-primary/30 border-t-primary",
-        sizeClasses[size],
-        className
-      )}
-      role="status"
-      aria-label="Loading"
-      style={{
-        animation: "custom-spin 0.6s linear infinite",
-        willChange: "transform"
-      }}
-    />
+    <>
+      <style>{`
+        @keyframes spinner-rotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+      <div
+        ref={spinnerRef}
+        className={cn(
+          "inline-block rounded-full border-solid border-primary/30 border-t-primary",
+          sizeClasses[size],
+          className
+        )}
+        role="status"
+        aria-label="Loading"
+        style={{
+          animation: "spinner-rotate 0.6s linear infinite",
+          willChange: "transform"
+        }}
+      />
+    </>
   )
 }
 

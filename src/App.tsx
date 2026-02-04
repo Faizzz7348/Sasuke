@@ -19,7 +19,6 @@ import { ToastProvider } from "@/contexts/ToastProvider"
 import { PageTransition } from "@/components/ui/page-transition"
 import { ErrorBoundary } from "@/components/ErrorBoundary"
 import { SEO } from "@/components/SEO"
-import { AnimationDiagnostic } from "@/components/AnimationDiagnostic"
 import { lazy, Suspense, useState } from "react"
 import { LoadingCard } from "@/components/ui/loading-card"
 
@@ -58,9 +57,6 @@ function AppContent() {
 
   return (
     <>
-      {/* Animation Diagnostic - Remove after testing */}
-      <AnimationDiagnostic />
-      
       <SEO 
         title={pageTitle}
         description={`Manage and view ${currentView === "overview" ? "all routes" : currentView === "list" ? `routes in ${currentRegion}` : "route details"}`}
