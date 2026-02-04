@@ -7,7 +7,7 @@ import {
   updateTableRows,
   deleteTableRow,
   getOverview,
-} from '../src/api/tables'
+} from '../src/api/tables.js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers
